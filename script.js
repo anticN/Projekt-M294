@@ -17,9 +17,11 @@ function renderTasks(tasks){
 
 
 function indexTasks() {
-    fetch("127.0.0.1:3000/tasks")
-    .then((response) => response.json())
-    .then((data) => renderTasks(data))
+    fetch("http://localhost:3000/tasks")
+    .then((response) => { 
+        return response.json()})
+    .then((data) => {
+        return renderTasks(data)})
 }
 
 
@@ -28,44 +30,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const allTasks = document.getElementById("allTasks");
     const newTask = document.getElementById("newTask");
     const updateTask = document.getElementById("updateTask");
-    const delTask = document.getElementById("delTask");
-
-    allTasks?.addEventListener("click", () => {
-        //event.preventDefault()
-        indexTasks()
-        window.stop()
-    });
-    
-    
+    const delTask = document.getElementById("delTask"); 
     const newTaskForm = document.getElementById("newTaskForm")
-    const newTaskInput = document.getElementById("newTaskInput");  
+    const newTaskInput = document.getElementById("newTaskInput"); 
     
 
-    newTaskForm?.addEventListener("submit", () => {
-        //event.preventDefault()
-        const data = {"title": newTaskInput.value};
-
-        fetch("http://127.0.0.1:3000/tasks", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-            console.log("Success:", data);
-        })
-    })
-    
+    allTasks.addEventListener("click", () => {
+        indexTasks();
+    });
 
     updateTask.addEventListener("click", () => {
         alert("Tes3")
     })
 
     delTask.addEventListener("click", () => {
-        
+        alert("Test4")
     })
-
-
+        
 })
