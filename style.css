@@ -5,6 +5,16 @@ button{
     margin: 15px;
 }
 
+thead{
+    margin: auto 30px;
+    padding: auto 30px;
+}
 tbody{
-    margin: auto 10px;
+    padding: auto 30px;
+    margin: auto 30px;
+}
+
+#DelButton{
+    background-color: red;
+    color: red;
 }
