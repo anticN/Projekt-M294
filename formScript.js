@@ -17,10 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((data) => {
             console.log("Success:", data);
         })
-        
-            const result = document.createElement("h3")
-            result.innerText = `Die Aufgabe ${newTaskInput.value} wurde hinzugefügt`
-            return result
+    
+            //const result = document.createElement("h3")
+            const newDiv = document.createElement("div");
+            const result = document.createTextNode(`Die Aufgabe ${newTaskInput.value} wurde hinzugefügt.`)
+            newDiv.appendChild(result);
+            //result.innerText = `Die Aufgabe ${newTaskInput.value} wurde hinzugefügt`
+            //return result
+            
             
         });
 })

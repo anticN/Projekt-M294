@@ -2,9 +2,20 @@ html{
     font-family: Arial, Helvetica, sans-serif;
 }
 button{
-    margin: 15px;
+    margin: 15px 20px;
 }
-
+.delButton:hover{
+    background-color: red;
+    color: black;
+}
+button:hover{
+    transition: all .2s ease-in-out;
+    background-color: #78CDD7;
+}
+a{
+    text-decoration: wavy;
+    color: black;
+}
 thead{
     margin: auto 30px;
     padding: auto 30px;
@@ -13,8 +24,10 @@ tbody{
     padding: auto 30px;
     margin: auto 30px;
 }
+td{
+    margin: 15px 15px;
+}
 
-#DelButton{
-    background-color: red;
+.delButton{
     color: red;
 }
