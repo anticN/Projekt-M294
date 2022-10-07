@@ -20,6 +20,3 @@ login.html mit VS-Live Server o.ä öffnen
 
 # Version
 1.0
-
-# Testfälle
-Die Testfälle findet man in der Datei Testfälle.pdf
