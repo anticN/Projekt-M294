@@ -11,8 +11,7 @@
           document.addEventListener("DOMContentLoaded", function() {
             checkLoggedin()
 
-            document.getElementById("login").addEventListener("submit", function(event){
-              event.preventDefault()
+            document.getElementById("login").addEventListener("submit", function(){
 
               const email = document.getElementById("email_input").value
               const password = document.getElementById("password_input").value
@@ -21,10 +20,10 @@
               fetch("http://127.0.0.1:3000/auth/cookie/login", {
                 method: "POST",
                 credentials: "include",
-                header: {
+                headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(login)
+                body: JSON.stringify({email: email, password: password})
               })
             })
           })
@@ -41,34 +40,35 @@
                 elementWhenLoggedIn.classList.add("hidden")
                 elementWhenNotLoggedIn.classList.remove("hidden")
                 navbar.classList.add("hidden")
+                alert("falsches Passwort")
               }else{
                 elementWhenLoggedIn.classList.remove("hidden")
                 elementWhenNotLoggedIn.classList.add("hidden")
-                navbar.classList.remove("navbar")
+                navbar.classList.remove("hidden")
               }
             })
           }
         </script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark hidden" id="navbar">
-            <div class="container">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav">
-                  <li><a class="nav-link" href="/index.html">Home</a></li>
-                  <li><a class="nav-link" href="./newTask.html">Neue Aufgabe</a></li>
-                  <li><a class="nav-link active" href="./login.html">Login</a></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
           <div id="loggedin" class="hidden">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark hidden" id="navbar">
+              <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                  <ul class="navbar-nav">
+                    <li><a class="nav-link" href="/index.html">Home</a></li>
+                    <li><a class="nav-link" href="./newTask.html">Neue Aufgabe</a></li>
+                    <li><a class="nav-link active" href="./login.html">Login</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
             <p>Sie sind eingeloggt</p>
           </div>
-          <div id="notLoggedin" class="hidden">
+          <div id="notLoggedin" class="hidden page">
             <form id="login">
               <div>
                 <label for="email_input">Email</label>
