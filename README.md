@@ -15,7 +15,7 @@ Nikola Antic
 MIT-Lizenz
 
 # Requirements
-Backend muss laufen
+Backend muss laufen. 
 login.html mit VS-Live Server o.ä öffnen
 
 # Version
