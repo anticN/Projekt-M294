@@ -31,3 +31,9 @@ td{
 .delButton{
     color: red;
 }
+.hidden{
+    display: none;
+}
+form{
+    display: block;
+}

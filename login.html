@@ -7,9 +7,51 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="./style.css">
         <title>Login</title>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            checkLoggedin()
+
+            document.getElementById("login").addEventListener("submit", function(event){
+              event.preventDefault()
+
+              const email = document.getElementById("email_input").value
+              const password = document.getElementById("password_input").value
+              const login = {email: email, password: password}
+
+              fetch("http://127.0.0.1:3000/auth/cookie/login", {
+                method: "POST",
+                credentials: "include",
+                header: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(login)
+              })
+            })
+          })
+
+          function checkLoggedin(){
+            const elementWhenLoggedIn = document.getElementById("loggedin")
+            const elementWhenNotLoggedIn = document.getElementById("notLoggedin")
+            const navbar = document.getElementById("navbar")
+            fetch("http://127.0.0.1:3000/auth/cookie/status", {
+              credentials: "include"
+            }).then(function(response) {
+              console.log(response)
+              if(response.status == 401){
+                elementWhenLoggedIn.classList.add("hidden")
+                elementWhenNotLoggedIn.classList.remove("hidden")
+                navbar.classList.add("hidden")
+              }else{
+                elementWhenLoggedIn.classList.remove("hidden")
+                elementWhenNotLoggedIn.classList.add("hidden")
+                navbar.classList.remove("navbar")
+              }
+            })
+          }
+        </script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark hidden" id="navbar">
             <div class="container">
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
@@ -23,6 +65,22 @@
               </div>
             </div>
           </nav>
+          <div id="loggedin" class="hidden">
+            <p>Sie sind eingeloggt</p>
+          </div>
+          <div id="notLoggedin" class="hidden">
+            <form id="login">
+              <div>
+                <label for="email_input">Email</label>
+                <input type="email" name="email" id="email_input">
+              </div>
+              <div>
+                <label for="password_input">password</label>
+                <input type="password" name="password" id="password_input">
+              </div>
+                <button type="submit">Login</button>
+            </form>
+          </div>
           <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

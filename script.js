@@ -14,28 +14,53 @@ const createButton = (id) => {
     return button
 }
 
-const createChangebox = (state) => {
-    const checkId = state 
+const createChangebox = (id) => {
+    const checkId = id 
     const changeBox = document.createElement("input")
     changeBox.type = "checkbox"
     changeBox.className = "changeBox"
     return changeBox
 }
 
-function changeTask(){
-    const data = {"completed": true}
-    fetch(`http://localhost:3000/tasks`, {
+const createChange = (id) => {
+    const changeTitle = document.createElement("input")
+    changeTitle.type = "button"
+    changeTitle.innerText = "edit"
+    changeTitle.className = "changeTitle"
+    return changeTitle
+}
+
+function changeTaskstate(checkId){
+    //const data = {id: checkId,
+      //              completed: true}
+    fetch('http://localhost:3000/tasks', {
         method: "PUT",
         headers: {
             "Content-type": "application/json"
-        }, body: JSON.stringify(data),
+        }, body: JSON.stringify({id: checkId, completed: true}),
     })
-     .then((response) => response.json())
+     //.then((response) => response.json())
      .then((data) => {
         console.log("Success:", data)
      })
-     //location.reload()
+     .then(window.location.reload())
     }
+
+    function changeTask(checkId){
+        const newTitle = prompt("Geben Sie den neuen Namen ein", "Neuer Name")
+
+        fetch('http://localhost:3000/tasks', {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json"
+            }, body: JSON.stringify({id: checkId, title: newTitle}),
+        })
+         //.then((response) => response.json())
+         .then((data) => {
+            console.log("Success:", data)
+         })
+         .then(window.location.reload())
+        }
 
 function deleteTask(id){
     fetch(`http://localhost:3000/task/${id}`, {
@@ -55,14 +80,18 @@ function renderTasks(tasks){
         tableRow.append(createCell(task.id), createCell(task.title), createCell(task.completed));
         const delButton = createButton(task.id);
         const changeBox = createChangebox(task.id);
-        changeBox.checked = task.completed;
+        const changeTitle = createChange(task.id);
+        changeBox.checked = task.completed
         tableRow.append(changeBox);
 
         changeBox.addEventListener("click", () => {
-            changeTask()
+            changeTaskstate(task.id)
             //indexTasks()
         })
-
+        tableRow.append(changeTitle);
+        changeTitle.addEventListener("click", () => {
+            changeTask(task.id)
+        })
         tableRow.append(delButton);
         tableBody.appendChild(tableRow);
         delButton.addEventListener("click", () => {
@@ -88,8 +117,8 @@ function indexTasks() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const allTasks = document.getElementById("allTasks");
-    const newTask = document.getElementById("newTask");
+    //const allTasks = document.getElementById("allTasks");
+    //const newTask = document.getElementById("newTask");
     const updateTask = document.getElementById("updateTask");
      
         indexTasks();
