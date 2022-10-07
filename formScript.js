@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((data) => {
             console.log("Success:", data);
         })
+        alert(`Die Aufgabe ${newTaskInput.value} wurde hinzugefügt`)
             const newDiv = document.createElement("div");
             const result = document.createTextNode(`Die Aufgabe ${newTaskInput.value} wurde hinzugefügt.`)
             newDiv.appendChild(result);            
